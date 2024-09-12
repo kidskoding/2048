@@ -111,6 +111,7 @@ class Grid:
                             tileHasMoved = True
         if tileHasMoved:
             self.addRandomTile()
+            tileHasMoved = False
         
     def mergeTiles(self, tile1, tile2):
         tile1 = Tile(tile1.value * 2, tile1.row, tile1.col)
