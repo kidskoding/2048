@@ -1,7 +1,6 @@
 import pygame
 
 from Grid import Grid
-from Tile import Tile
 
 pygame.init()
 

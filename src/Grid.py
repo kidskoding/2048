@@ -58,6 +58,9 @@ class Grid:
                             self.tiles[row][col] = None
                             tile.moveTile(row - 1, col)
                             row -= 1
+                        if row > 0 and self.tiles[row - 1][col].value == tile.value:
+                            self.mergeTiles(self.tiles[row - 1][col], tile)
+                            tile.moveTile(row - 1, col)
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
             for col in range(len(self.tiles)):
                 for row in range(len(self.tiles) - 2, -1, -1):
@@ -68,6 +71,9 @@ class Grid:
                             self.tiles[row][col] = None
                             tile.moveTile(row + 1, col)
                             row += 1
+                        if row < self.size - 1 and self.tiles[row + 1][col].value == tile.value:
+                            self.mergeTiles(self.tiles[row + 1][col], tile)
+                            tile.moveTile(row + 1, col)
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             for row in range(len(self.tiles)):
                 for col in range(1, len(self.tiles)):
@@ -78,6 +84,9 @@ class Grid:
                             self.tiles[row][col] = None
                             tile.moveTile(row, col - 1)
                             col -= 1
+                        if col > 0 and self.tiles[row][col - 1].value == tile.value:
+                            self.mergeTiles(self.tiles[row][col - 1], tile)
+                            tile.moveTile(row, col - 1)
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             for row in range(len(self.tiles)):
                 for col in range(len(self.tiles) - 2, -1, -1):
@@ -88,7 +97,11 @@ class Grid:
                             self.tiles[row][col] = None
                             tile.moveTile(row, col + 1)
                             col += 1
-    
+                        if col < self.size - 1 and self.tiles[row][col + 1].value == tile.value:
+                            self.mergeTiles(self.tiles[row][col + 1], tile)
+                            tile.moveTile(row, col + 1)
+        
     def mergeTiles(self, tile1, tile2):
         tile1 = Tile(tile1.value * 2, tile1.row, tile1.col)
+        self.tiles[tile1.row][tile1.col] = tile1
         self.tiles[tile2.row][tile2.col] = None
