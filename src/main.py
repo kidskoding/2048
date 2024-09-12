@@ -13,8 +13,8 @@ pygame.display.set_caption('2048')
 screen.fill((187, 173, 160))
 
 def isGameOver():
-    for row in range(grid.size):
-        for col in range(grid.size):
+    for row in range(len(grid.tiles)):
+        for col in range(len(grid.tiles)):
             if(grid.tiles[row][col] is None 
                 or (row > 0 and grid.tiles[row][col].value == grid.tiles[row - 1][col].value)
                 or (col > 0 and grid.tiles[row][col].value == grid.tiles[row][col - 1].value)):
@@ -57,6 +57,16 @@ while playing:
         text_rect = text.get_rect(center=quit_rect.center)
         pygame.draw.rect(screen, (143, 122, 102), quit_rect)
         screen.blit(text, text_rect)
+        
+        mouse_pos = pygame.mouse.get_pos()
+        mouse_click = pygame.mouse.get_pressed()
+
+        if mouse_click[0]:
+            if play_again_rect.collidepoint(mouse_pos):
+                grid = Grid()
+                screen.fill((187, 173, 160))
+            elif quit_rect.collidepoint(mouse_pos):
+                playing = False
         
     pygame.display.update()
 
