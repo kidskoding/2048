@@ -1,13 +1,13 @@
 import pygame
 
 from Grid import Grid
+from Tile import Tile
 
 pygame.init()
 
 grid = Grid()
 
-screenSize = grid.gridSize * grid.tileSize + (grid.gridSize + 1) * grid.tileMargin
-screen = pygame.display.set_mode((screenSize, screenSize))
+screen = pygame.display.set_mode((440, 440))
 pygame.display.set_caption('2048')
 screen.fill((187, 173, 160))
 
@@ -17,7 +17,8 @@ while playing:
         if event.type == pygame.QUIT:
             playing = False
             
-    grid.drawGrid(screen)
+    grid.drawGrid(screen, tileSize=100, tileMargin=10)
+    
     pygame.display.update()
 
 pygame.quit()
