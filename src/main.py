@@ -18,6 +18,7 @@ while playing:
             playing = False
             
     grid.drawGrid(screen, tileSize=100, tileMargin=10)
+    grid.moveTiles()
     
     pygame.display.update()
 

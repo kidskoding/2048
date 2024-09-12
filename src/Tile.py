@@ -38,3 +38,9 @@ class Tile:
         text_rect = text.get_rect(center=(self.x + self.size / 2, self.y + self.size / 2))
         
         screen.blit(text, text_rect)
+        
+    def moveTile(self, newRow, newCol):
+        self.row = newRow
+        self.col = newCol
+        self.x = self.col * (self.size + self.margin) + self.margin
+        self.y = self.row * (self.size + self.margin) + self.margin

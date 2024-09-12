@@ -26,6 +26,13 @@ class Grid:
             for tile in tileRow:
                 if tile is not None:
                     tile.drawTile(screen)
+                    
+    def getTileAt(self, row, col):
+        for tileRow in self.tiles:
+            for tile in tileRow:
+                if tile != None and tile.row == row and tile.col == col:
+                    return tile
+        return None
                 
     def addRandomTile(self):
         empty_positions = [(row, col) for row in range(self.size) for col in range(self.size) if self.tiles[row][col] is None]
@@ -38,9 +45,50 @@ class Grid:
         self.tiles[tile.row][tile.col] = tile
         tile.x = tile.col * (tile.size + tile.margin) + tile.margin
         tile.y = tile.row * (tile.size + tile.margin) + tile.margin
-        
-    def getTileAt(self, row, col):
-        for tile in self.tiles:
-            if tile.row == row and tile.col == col:
-                return tile
-        return None
+    
+    def moveTiles(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_UP] or keys[pygame.K_w]:
+            for col in range(len(self.tiles)):
+                for row in range(1, len(self.tiles)):
+                    tile = self.tiles[row][col]
+                    if tile is not None:
+                        while row > 0 and self.tiles[row - 1][col] is None:
+                            self.tiles[row - 1][col] = tile
+                            self.tiles[row][col] = None
+                            tile.moveTile(row - 1, col)
+                            row -= 1
+        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            for col in range(len(self.tiles)):
+                for row in range(len(self.tiles) - 2, -1, -1):
+                    tile = self.tiles[row][col]
+                    if tile is not None:
+                        while row < self.size - 1 and self.tiles[row + 1][col] is None:
+                            self.tiles[row + 1][col] = tile
+                            self.tiles[row][col] = None
+                            tile.moveTile(row + 1, col)
+                            row += 1
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            for row in range(len(self.tiles)):
+                for col in range(1, len(self.tiles)):
+                    tile = self.tiles[row][col]
+                    if tile is not None:
+                        while col > 0 and self.tiles[row][col - 1] is None:
+                            self.tiles[row][col - 1] = tile
+                            self.tiles[row][col] = None
+                            tile.moveTile(row, col - 1)
+                            col -= 1
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            for row in range(len(self.tiles)):
+                for col in range(len(self.tiles) - 2, -1, -1):
+                    tile = self.tiles[row][col]
+                    if tile is not None:
+                        while col < self.size - 1 and self.tiles[row][col + 1] is None:
+                            self.tiles[row][col + 1] = tile
+                            self.tiles[row][col] = None
+                            tile.moveTile(row, col + 1)
+                            col += 1
+    
+    def mergeTiles(self, tile1, tile2):
+        tile1 = Tile(tile1.value * 2, tile1.row, tile1.col)
+        self.tiles[tile2.row][tile2.col] = None
