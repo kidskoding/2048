@@ -14,7 +14,7 @@ screen.fill((187, 173, 160))
 playing = True
 while playing:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT: 
             playing = False
             
     grid.drawGrid(screen, tileSize=100, tileMargin=10)
