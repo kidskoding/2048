@@ -14,3 +14,10 @@ Use the up/left/down/right keys, or WASD to move the tiles in up, left, down, an
 
 <img width="442" alt="Screenshot 2024-09-12 at 11 11 00 AM" src="https://github.com/user-attachments/assets/0f9ecabc-1690-45b2-84e4-d3a536742569">
 
+#### When the player reaches 2048, they win the game!
+
+![Screenshot from 2024-10-04 16-46-54](https://github.com/user-attachments/assets/c0927099-3b5f-4695-b2f8-4594c813bc09)
+
+#### If there are no tiles that can merge or no spaces to add new tiles, the game is over!
+
+![Screenshot from 2024-10-04 16-48-30](https://github.com/user-attachments/assets/068eb798-4e34-4fdb-9d1a-688d4c21f801)
