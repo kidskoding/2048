@@ -28,6 +28,7 @@ def reached2048():
                 and grid.tiles[row][col].value == 2048):
                     return True
     return False
+
 playing = True
 while playing:
     for event in pygame.event.get():
